@@ -1,0 +1,429 @@
+﻿<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML5 canvas超逼真的模拟时钟特效</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<link rel="stylesheet" media="screen" href="css/main.css"/>
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+
+	<div class="time-top">
+		<div class="time-top-logo">
+			<img src="./img/logo (01).png"><b class="time-top-logo-t1">工作闹钟</b>
+			<p class="time-top-logo-t2">互联网人每天工作都在用</p>
+		</div>
+		<div class="time-top-logo-t3">请记得收藏Ctrl + D</div>
+	</div>
+	<hr class="time-top-border">
+	<div class="htmleaf-container">
+		<div class="container">
+			<div id="myclock"></div>
+			<div id="alarm1" class="alarm"><a href="javascript:void(0)" id="turnOffAlarm">关闭闹钟</a></div>
+		</div>
+		<br/><br/>
+		<div class="time-tip">
+			<p class="time-tip-t1">工作两小时休息十分钟</p>
+			<p class="time-tip-t2">温馨提示:</p>
+			<p class="time-tip-t2">1、您需要打=开闹钟网页,关闭该页闹钟功能将失效。</p>
+			<p class="time-tip-t2">2、您需要打开音箱或配戴耳机,以便听到铃声。</p>
+		</div>
+		<!-- <input type="text" id="altime" placeholder="hh:mm"/><br><br>
+		<a href="javascript:void(0)" id="set">设置闹钟</a> -->
+
+		<div class="time-form">
+			<div class="time-form-line">
+				<div class="time-form-line-before">
+					<img src="./img/闹钟32.png" width='34px' height="34px">记时闹钟
+				</div>
+				<div class="time-form-line-input">
+					<input type="text" id="time-form-line-input1" placeholder="00"/>小时
+				</div>
+				<div class="time-form-line-input">
+					<input type="text" id="time-form-line-input2" placeholder="00"/>分钟
+				</div>
+				<div class="time-form-line-input">
+					<input type="text" id="time-form-line-input3" placeholder="00"/>秒
+				</div>
+				<div class="time-form-action">
+					<button class="time-form-action-btn time-active2">启动</button>
+				</div>
+			</div>
+			<div class="time-form-line time-form-select-line">
+				<div class="time-form-line-before">
+					<img src="./img/铃声32.png" width='34px' height="34px">设置铃声
+				</div>
+				<div class="time-form-line-input">
+					<select id="time-form-line-yy" class="time-form-line-yy" >
+						
+					</select>
+				</div>
+				
+				<div class="time-form-try">
+					试听
+				</div>
+			</div>
+			<div class="time-list-title-div">
+				<div class="time-list-title">
+					自定义后的铃声闹钟
+					<div class="time-list-addbtn">
+						<div class="time-list-addbtn-div"  data-target="#myModal"  data-toggle="modal">
+        					<div class="time-list-group-addon">+</div>
+        					<div class="time-list-addbtn-text" >自定义铃声</div>
+      					</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="time-list">
+				<ul>
+					<li class="time-list-first">
+						<div class="time-list-before">歌曲名/歌手</div>
+						<div class="time-list-after">操作</div>
+					</li>
+					<li class="time-list-item" data-index="1">
+						<div class="time-item-before">别离<span class="time-item-start"><img src="./img/start.png"></span></div>
+						<div class="time-item-after time-item-delete"><img src="./img/delete.png"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<br>
+
+	<div class="modal" tabindex="-1" role="dialog" id="myModal">
+	  	<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        	<h4 class="modal-title">添加网络闹钟铃声</h4>
+	      	</div>
+	      	<div class="modal-body">
+			  	<div class="time-form-group">
+			    	<div class="time-label">外接铃声链接:</div>
+			    	<div class="time-label-inp">
+			     	<input type="text" class="form-control url" placeholder="请输入铃声链接" >
+			    	</div>
+			  	</div>
+			  	<div class="time-form-group">
+			    	<div class="time-label">歌&nbsp;&nbsp;曲&nbsp;&nbsp;名:</label></div>
+			    	<div class="time-label-inp">
+			     	<input type="text" class="form-control name" placeholder="还能输入45字" >
+			    	</div>
+			  	</div>
+	      	</div>
+	      	<div class="modal-footer">
+	        	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+	        	<button type="button" class="btn btn-primary add-item-btn time-active2" data-dismiss="modal">添加</button>
+	      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<div class="modal" tabindex="-1" role="dialog" id="loundstyle">
+	  	<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title">温馨提示</h4>
+		      	</div>
+		      	<div class="modal-body">
+		        	下课走动十分钟
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
+	<br>
+	测试链接地址：
+	<input type="text" value = 'http://hao.1015600.com/upload/ring/000/984/f2d29053a71337b45ad7d3ddf639912b.mp3'>
+	
+	<script>window.jQuery || document.write('<script src="js/jquery-2.1.1.min.js"><\/script>')</script>
+	<script language="javascript" type="text/javascript" src="js/bootstrap.min.js"></script>  
+	<script language="javascript" type="text/javascript" src="js/jquery.thooClock.js"></script>  
+	<script language="javascript">
+		var intVal, myclock,audioElement;
+		// 添加闹铃
+		var list = [
+			{
+				name:'速度与激情',
+				url:'http://hao.1015600.com/upload/ring/000/980/156100a7e90b469e2ccb1abdbd47211f.mp3',
+				isdelete:1
+			},
+			{
+				name:'快接电话',
+				url:'http://hao.1015600.com/upload/ring/000/984/9d7d8c0f6733a300264dba6fbbd446ba.mp3',
+				isdelete:1
+			},
+			{
+				name:'异国可爱小孩童喊你看短信',
+				url:'http://5.1015600.com/download/ring/000/093/03742f65face2a891d9bb95070802041.mp3',
+				isdelete:1
+			}
+
+		];
+		var url = 'http://hao.1015600.com/upload/ring/000/984/a9e9ae83e44785d590d96ae644ba6b5b.mp3';
+
+
+		$(window).resize(function(){
+			window.location.reload();
+		});
+
+		$(document).ready(function(){
+			//clock plugin constructor
+			$('#myclock').thooClock({
+				size:$(document).height()/2,
+				onAlarm:function(){
+					// 时间到了的回调
+					// $('#alarm1').show();
+					// alarmBackground(0);
+					lound($("#time-form-line-yy").attr("data-url"));
+					loundstyle();
+
+				},
+				showNumerals:true,
+				brandText:'THOOYORK',
+				brandText2:'Chinese',
+				onEverySecond:function(){
+					//callback that should be fired every second
+				},
+				offAlarm:function(){
+					// 关闭闹铃回调
+					// $('#alarm1').hide();
+					// audioElement.pause();
+					// clearTimeout(intVal);
+					// $('body').css('background-color','#FCFCFC');
+
+				}
+			});
+
+		});
+		$('#turnOffAlarm').click(function(){
+			$.fn.thooClock.clearAlarm();
+		});
+
+		$('#set').click(function(){
+			var inp = $('#altime').val();
+			console.log(inp);
+			$.fn.thooClock.setAlarm(inp);
+		});
+		
+
+		
+
+
+
+		init();
+
+		function init(){
+			randerslect();
+			randerlist();
+		}
+
+
+		// 设置时间
+
+		$(".time-form-action-btn").click(function(){
+			
+			if($(this).hasClass("time-active2")){
+				$('.time-form-action-btn').text("重启").removeClass('time-active2').addClass("time-active1");
+				var timeadd = $("#time-form-line-input1").val() * 3600 + $("#time-form-line-input2").val() * 60 + $("#time-form-line-input3").val() * 1;
+				var nowtime = (new Date()).getTime();
+				console.log(timeadd);
+				console.log(nowtime);
+				var loundtime = timeadd * 1000 + nowtime;
+				new Date(loundtime);
+				$.fn.thooClock.setAlarm(new Date(loundtime));
+			}else {
+				$('.time-form-action-btn').text("启动").removeClass('time-active1').addClass("time-active2");
+				$(".time-form-line").find("input").val("");
+				$.fn.thooClock.clearAlarm();
+			}
+			
+		})
+		$('.time-list-addbtn-div').click(function(){
+			$(this).find('div').addClass("time-active2");
+		})
+		// 添加铃声
+		$('.add-item-btn').click(function(){
+			var item = {};
+			if($(this).parents("#myModal").find(".name").val() && $(this).parents("#myModal").find(".url").val()){
+				var name = $(this).parents("#myModal").find(".name").val();
+				var url = $(this).parents("#myModal").find(".url").val();
+				item.name = name;
+				item.url = url;
+				console.log(list);
+				list.unshift(item);
+				console.log(list);
+				randerlist();
+				randerslect();
+			}
+			
+		})
+		// 删除音乐,item是当前元素删除按钮
+		$(".time-list").on('click','.time-item-delete',function(){
+			deleteitem($(this));
+		})
+		$('.time-form-try').click(function(){
+			if($("body").hasClass("lounding")){
+				stoplound();
+				$(this).text("试听").removeClass('time-active1');
+			}else{
+				lound($('#time-form-line-yy').attr("data-url"));
+				$(this).text("关闭").addClass('time-active1');
+			}
+		})
+		// 选择select
+		$("#time-form-line-yy").on('click',$('option'),function(e){
+			if($("#time-form-line-yy").hasClass("line-show")){
+				$('#time-form-line-yy').attr({"data-url":$(this).find('option:selected').attr("data-url")});
+				stoplound();
+				$('.time-form-try').text("试听").removeClass('time-active1');
+				$('#time-form-line-yy').blur();
+				$("#time-form-line-yy").removeClass("line-show");
+				$(".time-form-try").trigger("click");
+
+			}else {
+				$('#time-form-line-yy').attr({"data-url":$(this).find('option:selected').attr("data-url")});
+				stoplound();
+				$('.time-form-try').text("试听").removeClass('time-active1');
+				$("#time-form-line-yy").addClass("line-show");
+				console.log($('option:selected'));
+				$('option:selected').eq(0).attr({"backgroundColor":"red"});
+			}
+			
+		})
+		
+		// 每首歌单独播放
+		$("body").on('click','.time-item-start',function(){
+			lound(list[$(this).parents(".time-list-item").attr("data-index")].url);
+			console.log($(this));
+			$(this).removeClass("time-item-start").addClass("time-item-stop").find("img").attr({"src":"./img/stop.png"});
+
+
+		})
+		$("body").on('click','.time-item-stop',function(){
+			stoplound();
+			$(this).removeClass("time-item-stop").addClass("time-item-start").find("img").attr({"src":"./img/start.png"});
+
+		})
+		
+
+		// selet focus
+		$('#time-form-line-yy').focus(function(){
+			$('#time-form-line-yy').attr({'size':"4"});
+			$(this).attr({"width": "220px","height": "34px","line-height": "34px"});
+			$('#time-form-line-yy').find("option").attr({"background":"#fff","color":"#333"});
+
+		});
+		$('#time-form-line-yy').blur(function(){
+			$('#time-form-line-yy').attr({'size':"1"});
+			$(this).attr({"width": "220px","height": "34px","line-height": "34px"});
+			$(this).removeAttr('size');
+		});
+		// 闹铃lounding样式
+		function loundstyle(){
+			$('#loundstyle').modal('show');
+		}
+		// 停止闹铃
+		$('#loundstyle').on('hidden.bs.modal', function (e) {
+		  	stoplound();
+		  	$.fn.thooClock.clearAlarm();
+		  	$('.time-form-action-btn').text("启动").removeClass('time-active1').addClass("time-active2");
+		})
+		// 停止闹铃
+		$('#myModal').on('hidden.bs.modal', function (e) {
+		  	if($(".time-list-addbtn-text").hasClass("time-active2")){
+		  		$(".time-list-addbtn-div").find("div").removeClass('time-active2');
+		  	}
+		})
+		// 放音乐
+		function lound(url) {
+			if(url){
+				stoplound();
+				audioElement = new Audio("");
+				document.body.appendChild(audioElement);
+				var canPlayType = audioElement.canPlayType("audio/ogg");
+				if(canPlayType.match(/maybe|probably/i)) {
+					audioElement.src = url;
+				} else {
+					audioElement.src = url;
+				}
+				audioElement.addEventListener('canplay', function() {
+					audioElement.loop = true;
+					audioElement.play();
+				}, false);
+				$("body").addClass("lounding");
+			}else {
+				// 提示
+			}
+			
+		}
+		// 停止
+		function stoplound(){
+			if(audioElement){
+				$("audio").remove();
+				$('.time-form-try').text("试听").removeClass('time-active1');
+				if($("body").hasClass("lounding")){
+					$("body").removeClass("lounding");
+				}
+				
+				
+			}
+		}
+
+		// 渲染列表
+		function randerlist(){
+			$('.time-list').find('.time-list-item').remove();
+			for(i in list){
+				var html = 
+					'<li class="time-list-item" data-index="' + i +'">' + 
+						'<div class="time-item-before">' + list[i].name + '<span class="time-item-start"><img src="./img/start.png"></span></div>';
+
+					html +=list[i].isdelete ? '<div class="time-item-after time-item-delete time-item-delete-none"><img src="./img/delete.png"></div>' :'<div class="time-item-after time-item-delete"><img src="./img/delete.png"></div>';
+					html +='</li>';
+				
+				$('.time-list ul').append(html);
+			}
+		}
+		// 渲染select
+		function randerslect(){
+			$('#time-form-line-yy').empty();
+			for(i in list){
+				var selectitem = '<option data-url="' + list[i].url + '">' + list[i].name + '</option>';
+				$('#time-form-line-yy').append(selectitem);
+			}
+			$('#time-form-line-yy').attr({"data-url":list[0].url})
+		}
+
+		
+		// 删除一条并渲染
+		function deleteitem (item) {
+			var index = item.parents(".time-list-item").attr("data-index");
+			list.splice(index,1);
+			randerlist();
+			randerslect();
+		}
+		
+			
+		function alarmBackground(y){
+				var color;
+				if(y===1){
+					color = '#CC0000';
+					y=0;
+				}
+				else{
+					color = '#FCFCFC';
+					y+=1;
+				}
+				$('body').css('background-color',color);
+				intVal = setTimeout(function(){alarmBackground(y);},100);
+		}
+	</script>
+</body>
+</html>
